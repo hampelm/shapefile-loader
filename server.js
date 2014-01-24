@@ -7,10 +7,9 @@ app.get('/data', function(req, res){
 
   var stream = shapefile.readStream('data/output.shp');
 
-  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Content-Type', 'application/json');
 
   stream.on('feature', function(f) {
-    console.log(f);
     res.write(JSON.stringify(f));
   });
 
