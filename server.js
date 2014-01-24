@@ -1,11 +1,22 @@
 var express = require('express');
+var shapefile = require('shapefile');
+
 var app = express();
 
-app.get('/hello', function(req, res){
-  var body = 'Hello World';
+app.get('/', function(req, res){
+
+  var stream = shapefile.readStream('detroit-architectural-survey/output.shp');
+
   res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Content-Length', Buffer.byteLength(body));
-  res.end(body);
+
+  stream.on('feature', function(f) {
+    console.log(f);
+    res.write(JSON.stringify(f));
+  });
+
+  stream.on('end', function() {
+    res.end();
+  });
 });
 
 app.listen(5555);
