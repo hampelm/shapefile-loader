@@ -3,9 +3,9 @@ var shapefile = require('shapefile');
 
 var app = express();
 
-app.get('/', function(req, res){
+app.get('/data', function(req, res){
 
-  var stream = shapefile.readStream('detroit-architectural-survey/output.shp');
+  var stream = shapefile.readStream('data/output.shp');
 
   res.setHeader('Content-Type', 'text/html');
 
